@@ -1,0 +1,28 @@
+{
+  "name": "last-run",
+  "version": "0.0.0",
+  "description": "Capture and retrieve the last time a function was run",
+  "author": "Blaine Bublitz <blaine@iceddev.com> (http://iceddev.com)",
+  "contributors": [],
+  "repository": "phated/last-run",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 0.10"
+  },
+  "main": "index.js",
+  "files": [
+    "LICENSE",
+    "index.js"
+  ],
+  "scripts": {
+    "test": "lab -cvL"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "keywords": [
+    "execution",
+    "function",
+    "last run",
+    "timing"
+  ]
+}
