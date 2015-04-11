@@ -6,7 +6,8 @@
     "semi": [2, "always"],
     "quotes": [2, "single"],
     "strict": [2, "global"],
-    "no-underscore-dangle": 0
+    "no-underscore-dangle": 0,
+    "consistent-return": 0
   },
   "env": {
     "es6": true,

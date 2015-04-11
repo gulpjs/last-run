@@ -17,8 +17,14 @@
   "scripts": {
     "test": "lab -cvL"
   },
-  "dependencies": {},
-  "devDependencies": {},
+  "dependencies": {
+    "default-resolution": "^1.0.0",
+    "es6-weak-map": "^0.1.2"
+  },
+  "devDependencies": {
+    "code": "^1.4.0",
+    "lab": "^5.5.1"
+  },
   "keywords": [
     "execution",
     "function",
