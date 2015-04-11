@@ -3,7 +3,7 @@
 var assert = require('assert');
 
 var WM = require('es6-weak-map');
-var hasNativeWeakmap = require('es6-weak-map/is-native-implemented');
+var hasWeakMap = require('es6-weak-map/is-implemented');
 var defaultResolution = require('default-resolution');
 
 var runtimes = new WM();
@@ -13,7 +13,7 @@ function isFunction(fn){
 }
 
 function isExtensible(fn){
-  if(hasNativeWeakmap){
+  if(hasWeakMap()){
     // native weakmap doesn't care about extensible
     return true;
   }
