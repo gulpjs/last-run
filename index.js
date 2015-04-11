@@ -3,10 +3,17 @@
 var assert = require('assert');
 
 var WM = require('es6-weak-map');
-var hasWeakMap = require('es6-weak-map/is-implemented');
 var defaultResolution = require('default-resolution');
 
-var runtimes = new WM();
+var nativeRegex = /[native code]/;
+
+// workaround until https://github.com/medikoo/es6-weak-map/pull/4 is merged
+function hasWeakMap(){
+  return (global.WeakMap && nativeRegex.test(global.WeakMap.toString()));
+}
+
+// workaround until https://github.com/medikoo/es6-weak-map/pull/4 is merged
+var runtimes = new (hasWeakMap() ? global.WeakMap : WM)();
 
 function isFunction(fn){
   return (typeof fn === 'function');
