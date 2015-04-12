@@ -1,6 +1,6 @@
 {
   "name": "last-run",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Capture and retrieve the last time a function was run",
   "author": "Blaine Bublitz <blaine@iceddev.com> (http://iceddev.com)",
   "contributors": [],
