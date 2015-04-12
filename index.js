@@ -40,6 +40,8 @@ function lastRun(fn, timeResolution){
 
   if(timeResolution == null){
     timeResolution = defaultResolution();
+  } else {
+    timeResolution = parseInt(timeResolution, 10);
   }
 
   if(timeResolution){
