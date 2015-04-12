@@ -18,6 +18,19 @@ lab.describe('lastRun', function() {
     done();
   });
 
+  lab.it('removes last run time with release method', function(done){
+    function test(){}
+
+    lastRun.capture(test);
+
+    code.expect(lastRun(test)).to.exist();
+
+    lastRun.release(test);
+
+    code.expect(lastRun(test)).to.not.exist();
+    done();
+  });
+
   lab.it('should return undefined for a function not captured', function(done){
     function test(){}
 
