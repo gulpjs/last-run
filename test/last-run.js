@@ -31,6 +31,15 @@ lab.describe('lastRun', function() {
     done();
   });
 
+  lab.it('does not error on release if not captures', function(done){
+    function test(){}
+
+    lastRun.release(test);
+
+    code.expect(lastRun(test)).to.not.exist();
+    done();
+  });
+
   lab.it('should return undefined for a function not captured', function(done){
     function test(){}
 
