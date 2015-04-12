@@ -77,6 +77,18 @@ lab.describe('lastRun', function() {
     done();
   });
 
+  lab.it('should accept a string for resolution', function(done){
+    var resolution = '1000'; // 1s
+    var since = Date.now();
+    var expected = since - (since % resolution);
+
+    function test(){}
+    lastRun.capture(test);
+
+    code.expect(lastRun(test, resolution)).to.equal(expected);
+    done();
+  });
+
   lab.it('throws on non-enumerable functions when using weakmap shim', function(done){
 
     function extensions(){
