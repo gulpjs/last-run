@@ -58,6 +58,14 @@ function capture(fn){
   runtimes.set(fn, Date.now());
 }
 
+function release(fn){
+  assert(isFunction(fn), 'Only functions can be captured');
+  assert(isExtensible(fn), 'Only extensible functions can be captured');
+
+  runtimes.delete(fn);
+}
+
 lastRun.capture = capture;
+lastRun.release = release;
 
 module.exports = lastRun;
