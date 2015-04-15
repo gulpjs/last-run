@@ -3,24 +3,17 @@
 var assert = require('assert');
 
 var WM = require('es6-weak-map');
+var hasNativeWeakMap = require('es6-weak-map/is-native-implemented');
 var defaultResolution = require('default-resolution');
 
-var nativeRegex = /[native code]/;
-
-// workaround until https://github.com/medikoo/es6-weak-map/pull/4 is merged
-function hasWeakMap(){
-  return (global.WeakMap && nativeRegex.test(global.WeakMap.toString()));
-}
-
-// workaround until https://github.com/medikoo/es6-weak-map/pull/4 is merged
-var runtimes = new (hasWeakMap() ? global.WeakMap : WM)();
+var runtimes = hasNativeWeakMap ? new WeakMap() : new WM();
 
 function isFunction(fn){
   return (typeof fn === 'function');
 }
 
 function isExtensible(fn){
-  if(hasWeakMap()){
+  if(hasNativeWeakMap){
     // native weakmap doesn't care about extensible
     return true;
   }
