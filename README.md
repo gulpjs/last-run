@@ -41,9 +41,10 @@ The default time resolution is 1000 on node v0.10, 0 on node 0.11+ and iojs.
 More information at [`default-resolution`](https://github.com/phated/default-resolution) and
 [undertaker PR #17](https://github.com/phated/undertaker/pull/17#issuecomment-82374512).
 
-### lastRun.capture(fn)
+### lastRun.capture(fn, [timestamp])
 
 Takes a function (`fn`) and captures the current timestamp with `Date.now()`.
+If passed the optional timestamp, captures that time instead of `Date.now()`.
 The captured timestamp can then be retrieved using the `lastRun` function.
 
 ### lastRun.release(fn)

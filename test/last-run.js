@@ -18,6 +18,17 @@ lab.describe('lastRun', function() {
     done();
   });
 
+  lab.it('should accept a timestamp', function(done){
+    function test(){}
+
+    var since = Date.now() - 5000;
+    lastRun.capture(test, since);
+
+    code.expect(lastRun(test)).to.exist();
+    code.expect(lastRun(test)).to.equal(since);
+    done();
+  });
+
   lab.it('removes last run time with release method', function(done){
     function test(){}
 

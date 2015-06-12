@@ -44,11 +44,13 @@ function lastRun(fn, timeResolution){
   return time;
 }
 
-function capture(fn){
+function capture(fn, timestamp){
   assert(isFunction(fn), 'Only functions can be captured');
   assert(isExtensible(fn), 'Only extensible functions can be captured');
 
-  runtimes.set(fn, Date.now());
+  timestamp = timestamp || Date.now();
+
+  runtimes.set(fn, timestamp);
 }
 
 function release(fn){
