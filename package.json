@@ -19,11 +19,11 @@
   },
   "dependencies": {
     "default-resolution": "^1.0.0",
-    "es6-weak-map": "^1.0.1"
+    "es6-weak-map": "^2.0.1"
   },
   "devDependencies": {
-    "code": "^1.4.0",
-    "lab": "^5.5.1"
+    "code": "^1.5.0",
+    "lab": "^6.2.0"
   },
   "keywords": [
     "execution",
