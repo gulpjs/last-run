@@ -2,11 +2,11 @@
 
 var assert = require('assert');
 
-var WeakMap = require('es6-weak-map');
+var WM = require('es6-weak-map');
 var hasNativeWeakMap = require('es6-weak-map/is-native-implemented');
 var defaultResolution = require('default-resolution');
 
-var runtimes = new WeakMap();
+var runtimes = new WM();
 
 function isFunction(fn){
   return (typeof fn === 'function');
