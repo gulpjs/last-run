@@ -6,7 +6,7 @@ var WM = require('es6-weak-map');
 var hasNativeWeakMap = require('es6-weak-map/is-native-implemented');
 var defaultResolution = require('default-resolution');
 
-var runtimes = hasNativeWeakMap ? new WeakMap() : new WM();
+var runtimes = new WM();
 
 function isFunction(fn){
   return (typeof fn === 'function');
