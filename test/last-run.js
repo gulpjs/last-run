@@ -7,8 +7,8 @@ var lastRun = require('../');
 
 lab.describe('lastRun', function() {
 
-  lab.it('should record function capture time', function(done){
-    function test(){}
+  lab.it('should record function capture time', function(done) {
+    function test() {}
 
     var since = Date.now();
     lastRun.capture(test);
@@ -18,8 +18,8 @@ lab.describe('lastRun', function() {
     done();
   });
 
-  lab.it('should accept a timestamp', function(done){
-    function test(){}
+  lab.it('should accept a timestamp', function(done) {
+    function test() {}
 
     var since = Date.now() - 5000;
     lastRun.capture(test, since);
@@ -29,8 +29,8 @@ lab.describe('lastRun', function() {
     done();
   });
 
-  lab.it('removes last run time with release method', function(done){
-    function test(){}
+  lab.it('removes last run time with release method', function(done) {
+    function test() {}
 
     lastRun.capture(test);
 
@@ -42,8 +42,8 @@ lab.describe('lastRun', function() {
     done();
   });
 
-  lab.it('does not error on release if not captures', function(done){
-    function test(){}
+  lab.it('does not error on release if not captures', function(done) {
+    function test() {}
 
     lastRun.release(test);
 
@@ -51,31 +51,31 @@ lab.describe('lastRun', function() {
     done();
   });
 
-  lab.it('should return undefined for a function not captured', function(done){
-    function test(){}
+  lab.it('should return undefined for a function not captured', function(done) {
+    function test() {}
 
     code.expect(lastRun(test)).to.not.exist();
     done();
   });
 
-  lab.it('should throw on non-functions', function(done){
-    function obj(){
+  lab.it('should throw on non-functions', function(done) {
+    function obj() {
       lastRun({});
     }
 
-    function str(){
+    function str() {
       lastRun('wat');
     }
 
-    function num(){
+    function num() {
       lastRun(1);
     }
 
-    function undef(){
+    function undef() {
       lastRun(undefined);
     }
 
-    function nul(){
+    function nul() {
       lastRun(null);
     }
 
@@ -87,8 +87,8 @@ lab.describe('lastRun', function() {
     done();
   });
 
-  lab.it('works with anonymous functions', function(done){
-    var test = function(){};
+  lab.it('works with anonymous functions', function(done) {
+    var test = function() {};
 
     var since = Date.now();
     lastRun.capture(test);
@@ -98,51 +98,51 @@ lab.describe('lastRun', function() {
     done();
   });
 
-  lab.it('should give time with 1s resolution', function(done){
+  lab.it('should give time with 1s resolution', function(done) {
     var resolution = 1000; // 1s
     var since = Date.now();
     var expected = since - (since % resolution);
 
-    function test(){}
+    function test() {}
     lastRun.capture(test);
 
     code.expect(lastRun(test, resolution)).to.equal(expected);
     done();
   });
 
-  lab.it('should accept a string for resolution', function(done){
+  lab.it('should accept a string for resolution', function(done) {
     var resolution = '1000'; // 1s
     var since = Date.now();
     var expected = since - (since % resolution);
 
-    function test(){}
+    function test() {}
     lastRun.capture(test);
 
     code.expect(lastRun(test, resolution)).to.equal(expected);
     done();
   });
 
-  lab.it('throws on non-enumerable functions when using weakmap shim', function(done){
+  lab.it('throws on non-enumerable functions when using weakmap shim', function(done) {
 
-    function extensions(){
-      var test = function(){};
+    function extensions() {
+      var test = function() {};
       Object.preventExtensions(test);
       lastRun.capture(test);
     }
 
-    function seal(){
-      var test = function(){};
+    function seal() {
+      var test = function() {};
       Object.seal(test);
       lastRun.capture(test);
     }
 
-    function freeze(){
-      var test = function(){};
+    function freeze() {
+      var test = function() {};
       Object.freeze(test);
       lastRun.capture(test);
     }
 
-    if(/v0.10/.test(process.version)){
+    if (/v0.10/.test(process.version)) {
       code.expect(extensions).to.throw('Only extensible functions can be captured');
       code.expect(seal).to.throw('Only extensible functions can be captured');
       code.expect(freeze).to.throw('Only extensible functions can be captured');

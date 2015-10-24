@@ -1,6 +1,6 @@
 # last-run
 
-[![Travis Build Status](https://img.shields.io/travis/phated/last-run/master.svg?label=travis&style=flat-square)](https://travis-ci.org/phated/last-run)
+[![Travis Build Status](https://img.shields.io/travis/gulpjs/last-run/master.svg?label=travis&style=flat-square)](https://travis-ci.org/gulpjs/last-run)
 
 Capture and retrieve the last time a function was run
 
@@ -38,8 +38,8 @@ On node v0.10 or with file system like HFS or FAT, `fs.stat` time attributes lik
 Assuming `lastRun(fn)` returns 1426000001111, `lastRun(fn, 1000)` returns 1426000001000.
 
 The default time resolution is 1000 on node v0.10, 0 on node 0.11+ and iojs.
-More information at [`default-resolution`](https://github.com/phated/default-resolution) and
-[undertaker PR #17](https://github.com/phated/undertaker/pull/17#issuecomment-82374512).
+More information at [`default-resolution`](https://github.com/gulpjs/default-resolution) and
+[undertaker PR #17](https://github.com/gulpjs/undertaker/pull/17#issuecomment-82374512).
 
 ### lastRun.capture(fn, [timestamp])
 

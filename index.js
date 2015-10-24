@@ -8,43 +8,43 @@ var defaultResolution = require('default-resolution');
 
 var runtimes = new WM();
 
-function isFunction(fn){
+function isFunction(fn) {
   return (typeof fn === 'function');
 }
 
-function isExtensible(fn){
-  if(hasNativeWeakMap){
-    // native weakmap doesn't care about extensible
+function isExtensible(fn) {
+  if (hasNativeWeakMap) {
+    // Native weakmap doesn't care about extensible
     return true;
   }
 
   return Object.isExtensible(fn);
 }
 
-function lastRun(fn, timeResolution){
+function lastRun(fn, timeResolution) {
   assert(isFunction(fn), 'Only functions can check lastRun');
   assert(isExtensible(fn), 'Only extensible functions can check lastRun');
 
   var time = runtimes.get(fn);
 
-  if(time == null){
+  if (time == null) {
     return;
   }
 
-  if(timeResolution == null){
+  if (timeResolution == null) {
     timeResolution = defaultResolution();
   } else {
     timeResolution = parseInt(timeResolution, 10);
   }
 
-  if(timeResolution){
+  if (timeResolution) {
     return time - (time % timeResolution);
   }
 
   return time;
 }
 
-function capture(fn, timestamp){
+function capture(fn, timestamp) {
   assert(isFunction(fn), 'Only functions can be captured');
   assert(isExtensible(fn), 'Only extensible functions can be captured');
 
@@ -53,7 +53,7 @@ function capture(fn, timestamp){
   runtimes.set(fn, timestamp);
 }
 
-function release(fn){
+function release(fn) {
   assert(isFunction(fn), 'Only functions can be captured');
   assert(isExtensible(fn), 'Only extensible functions can be captured');
 
