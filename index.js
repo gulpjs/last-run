@@ -31,17 +31,9 @@ function lastRun(fn, timeResolution) {
     return;
   }
 
-  if (timeResolution == null) {
-    timeResolution = defaultResolution();
-  } else {
-    timeResolution = parseInt(timeResolution, 10);
-  }
+  var resolution = defaultResolution(timeResolution);
 
-  if (timeResolution) {
-    return time - (time % timeResolution);
-  }
-
-  return time;
+  return time - (time % resolution);
 }
 
 function capture(fn, timestamp) {

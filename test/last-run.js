@@ -3,14 +3,24 @@
 var lab = exports.lab = require('lab').script();
 var code = require('code');
 
+var defaultResolution = require('default-resolution');
+
 var lastRun = require('../');
 
 lab.describe('lastRun', function() {
 
+  var since;
+
+  lab.beforeEach(function(done) {
+    since = Date.now();
+    // Account for default resolution
+    since = since - (since % defaultResolution());
+    done();
+  });
+
   lab.it('should record function capture time', function(done) {
     function test() {}
 
-    var since = Date.now();
     lastRun.capture(test);
 
     code.expect(lastRun(test)).to.exist();
@@ -21,7 +31,6 @@ lab.describe('lastRun', function() {
   lab.it('should accept a timestamp', function(done) {
     function test() {}
 
-    var since = Date.now() - 5000;
     lastRun.capture(test, since);
 
     code.expect(lastRun(test)).to.exist();
@@ -90,7 +99,6 @@ lab.describe('lastRun', function() {
   lab.it('works with anonymous functions', function(done) {
     var test = function() {};
 
-    var since = Date.now();
     lastRun.capture(test);
 
     code.expect(lastRun(test)).to.exist();
@@ -100,25 +108,35 @@ lab.describe('lastRun', function() {
 
   lab.it('should give time with 1s resolution', function(done) {
     var resolution = 1000; // 1s
-    var since = Date.now();
-    var expected = since - (since % resolution);
+    since = Date.now();
+    since = since - (since % resolution);
 
     function test() {}
     lastRun.capture(test);
 
-    code.expect(lastRun(test, resolution)).to.equal(expected);
+    code.expect(lastRun(test, resolution)).to.equal(since);
     done();
   });
 
   lab.it('should accept a string for resolution', function(done) {
     var resolution = '1000'; // 1s
-    var since = Date.now();
-    var expected = since - (since % resolution);
+    since = Date.now();
+    since = since - (since % 1000);
 
     function test() {}
     lastRun.capture(test);
 
-    code.expect(lastRun(test, resolution)).to.equal(expected);
+    code.expect(lastRun(test, resolution)).to.equal(since);
+    done();
+  });
+
+  lab.it('should use default resolution when forced to 0ms resolution', function(done) {
+    var resolution = 0;
+
+    function test() {}
+    lastRun.capture(test);
+
+    code.expect(lastRun(test, resolution)).to.equal(since);
     done();
   });
 

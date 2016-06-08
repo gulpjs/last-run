@@ -20,7 +20,7 @@
     "test": "lab -cvL"
   },
   "dependencies": {
-    "default-resolution": "^1.0.0",
+    "default-resolution": "^2.0.0",
     "es6-weak-map": "^2.0.1"
   },
   "devDependencies": {
