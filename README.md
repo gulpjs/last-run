@@ -46,6 +46,10 @@ More information at [`default-resolution`](https://github.com/phated/default-res
 Takes a function (`fn`) and captures the current timestamp with `Date.now()`.
 The captured timestamp can then be retrieved using the `lastRun` function.
 
+### lastRun.release(fn)
+
+Takes a function (`fn`) and removes the last run timestamp for it.
+
 ## License
 
 MIT
