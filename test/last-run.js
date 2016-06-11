@@ -1,73 +1,72 @@
 'use strict';
 
-var lab = exports.lab = require('lab').script();
-var code = require('code');
+var expect = require('expect');
 
 var defaultResolution = require('default-resolution');
 
 var lastRun = require('../');
 
-lab.describe('lastRun', function() {
+describe('lastRun', function() {
 
   var since;
 
-  lab.beforeEach(function(done) {
+  beforeEach(function(done) {
     since = Date.now();
     // Account for default resolution
     since = since - (since % defaultResolution());
     done();
   });
 
-  lab.it('should record function capture time', function(done) {
+  it('should record function capture time', function(done) {
     function test() {}
 
     lastRun.capture(test);
 
-    code.expect(lastRun(test)).to.exist();
-    code.expect(lastRun(test)).to.be.within(since, Date.now());
+    expect(lastRun(test)).toExist();
+    expect(lastRun(test)).toBeLessThanOrEqualTo(Date.now());
     done();
   });
 
-  lab.it('should accept a timestamp', function(done) {
+  it('should accept a timestamp', function(done) {
     function test() {}
 
     lastRun.capture(test, since);
 
-    code.expect(lastRun(test)).to.exist();
-    code.expect(lastRun(test)).to.equal(since);
+    expect(lastRun(test)).toExist();
+    expect(lastRun(test)).toEqual(since);
     done();
   });
 
-  lab.it('removes last run time with release method', function(done) {
+  it('removes last run time with release method', function(done) {
     function test() {}
 
     lastRun.capture(test);
 
-    code.expect(lastRun(test)).to.exist();
+    expect(lastRun(test)).toExist();
 
     lastRun.release(test);
 
-    code.expect(lastRun(test)).to.not.exist();
+    expect(lastRun(test)).toNotExist();
     done();
   });
 
-  lab.it('does not error on release if not captures', function(done) {
+  it('does not error on release if not captures', function(done) {
     function test() {}
 
     lastRun.release(test);
 
-    code.expect(lastRun(test)).to.not.exist();
+    expect(lastRun(test)).toNotExist();
     done();
   });
 
-  lab.it('should return undefined for a function not captured', function(done) {
+  it('should return undefined for a function not captured', function(done) {
     function test() {}
 
-    code.expect(lastRun(test)).to.not.exist();
+    expect(lastRun(test)).toNotExist();
     done();
   });
 
-  lab.it('should throw on non-functions', function(done) {
+  it('should throw on non-functions', function(done) {
     function obj() {
       lastRun({});
     }
@@ -88,25 +87,25 @@ lab.describe('lastRun', function() {
       lastRun(null);
     }
 
-    code.expect(obj).to.throw('Only functions can check lastRun');
-    code.expect(str).to.throw('Only functions can check lastRun');
-    code.expect(num).to.throw('Only functions can check lastRun');
-    code.expect(undef).to.throw('Only functions can check lastRun');
-    code.expect(nul).to.throw('Only functions can check lastRun');
+    expect(obj).toThrow('Only functions can check lastRun');
+    expect(str).toThrow('Only functions can check lastRun');
+    expect(num).toThrow('Only functions can check lastRun');
+    expect(undef).toThrow('Only functions can check lastRun');
+    expect(nul).toThrow('Only functions can check lastRun');
     done();
   });
 
-  lab.it('works with anonymous functions', function(done) {
+  it('works with anonymous functions', function(done) {
     var test = function() {};
 
     lastRun.capture(test);
 
-    code.expect(lastRun(test)).to.exist();
-    code.expect(lastRun(test)).to.be.within(since, Date.now());
+    expect(lastRun(test)).toExist();
+    expect(lastRun(test)).toBeLessThanOrEqualTo(Date.now());
     done();
   });
 
-  lab.it('should give time with 1s resolution', function(done) {
+  it('should give time with 1s resolution', function(done) {
     var resolution = 1000; // 1s
     since = Date.now();
     since = since - (since % resolution);
@@ -114,11 +113,11 @@ lab.describe('lastRun', function() {
     function test() {}
     lastRun.capture(test);
 
-    code.expect(lastRun(test, resolution)).to.equal(since);
+    expect(lastRun(test, resolution)).toEqual(since);
     done();
   });
 
-  lab.it('should accept a string for resolution', function(done) {
+  it('should accept a string for resolution', function(done) {
     var resolution = '1000'; // 1s
     since = Date.now();
     since = since - (since % 1000);
@@ -126,21 +125,21 @@ lab.describe('lastRun', function() {
     function test() {}
     lastRun.capture(test);
 
-    code.expect(lastRun(test, resolution)).to.equal(since);
+    expect(lastRun(test, resolution)).toEqual(since);
     done();
   });
 
-  lab.it('should use default resolution when forced to 0ms resolution', function(done) {
+  it('should use default resolution when forced to 0ms resolution', function(done) {
     var resolution = 0;
 
     function test() {}
     lastRun.capture(test);
 
-    code.expect(lastRun(test, resolution)).to.equal(since);
+    expect(lastRun(test, resolution)).toEqual(since);
     done();
   });
 
-  lab.it('throws on non-enumerable functions when using weakmap shim', function(done) {
+  it('throws on non-enumerable functions when using weakmap shim', function(done) {
 
     function extensions() {
       var test = function() {};
@@ -161,13 +160,13 @@ lab.describe('lastRun', function() {
     }
 
     if (/v0.10/.test(process.version)) {
-      code.expect(extensions).to.throw('Only extensible functions can be captured');
-      code.expect(seal).to.throw('Only extensible functions can be captured');
-      code.expect(freeze).to.throw('Only extensible functions can be captured');
+      expect(extensions).toThrow('Only extensible functions can be captured');
+      expect(seal).toThrow('Only extensible functions can be captured');
+      expect(freeze).toThrow('Only extensible functions can be captured');
     } else {
-      code.expect(extensions).to.not.throw();
-      code.expect(seal).to.not.throw();
-      code.expect(freeze).to.not.throw();
+      expect(extensions).toNotThrow();
+      expect(seal).toNotThrow();
+      expect(freeze).toNotThrow();
     }
     done();
   });
