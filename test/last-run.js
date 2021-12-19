@@ -2,8 +2,6 @@
 
 var expect = require('expect');
 
-var defaultResolution = require('default-resolution');
-
 var lastRun = require('../');
 
 describe('lastRun', function() {
@@ -12,8 +10,6 @@ describe('lastRun', function() {
 
   beforeEach(function(done) {
     since = Date.now();
-    // Account for default resolution
-    since = since - (since % defaultResolution());
     done();
   });
 
@@ -22,8 +18,11 @@ describe('lastRun', function() {
 
     lastRun.capture(test);
 
-    expect(lastRun(test)).toExist();
-    expect(lastRun(test)).toBeLessThanOrEqualTo(Date.now());
+    var beforeRun = Date.now();
+    var justRun = lastRun(test);
+    var afterRun = Date.now();
+    expect(justRun).toBeGreaterThanOrEqual(beforeRun);
+    expect(justRun).toBeLessThanOrEqual(afterRun);
     done();
   });
 
@@ -32,7 +31,6 @@ describe('lastRun', function() {
 
     lastRun.capture(test, since);
 
-    expect(lastRun(test)).toExist();
     expect(lastRun(test)).toEqual(since);
     done();
   });
@@ -42,11 +40,15 @@ describe('lastRun', function() {
 
     lastRun.capture(test);
 
-    expect(lastRun(test)).toExist();
+    var beforeRun = Date.now();
+    var justRun = lastRun(test);
+    var afterRun = Date.now();
+    expect(justRun).toBeGreaterThanOrEqual(beforeRun);
+    expect(justRun).toBeLessThanOrEqual(afterRun);
 
     lastRun.release(test);
 
-    expect(lastRun(test)).toNotExist();
+    expect(lastRun(test)).toBeUndefined();
     done();
   });
 
@@ -55,14 +57,14 @@ describe('lastRun', function() {
 
     lastRun.release(test);
 
-    expect(lastRun(test)).toNotExist();
+    expect(lastRun(test)).toBeUndefined();
     done();
   });
 
   it('should return undefined for a function not captured', function(done) {
     function test() {}
 
-    expect(lastRun(test)).toNotExist();
+    expect(lastRun(test)).toBeUndefined();
     done();
   });
 
@@ -100,8 +102,11 @@ describe('lastRun', function() {
 
     lastRun.capture(test);
 
-    expect(lastRun(test)).toExist();
-    expect(lastRun(test)).toBeLessThanOrEqualTo(Date.now());
+    var beforeRun = Date.now();
+    var justRun = lastRun(test);
+    var afterRun = Date.now();
+    expect(justRun).toBeGreaterThanOrEqual(beforeRun);
+    expect(justRun).toBeLessThanOrEqual(afterRun);
     done();
   });
 
@@ -159,15 +164,9 @@ describe('lastRun', function() {
       lastRun.capture(test);
     }
 
-    if (/v0.10/.test(process.version)) {
-      expect(extensions).toThrow('Only extensible functions can be captured');
-      expect(seal).toThrow('Only extensible functions can be captured');
-      expect(freeze).toThrow('Only extensible functions can be captured');
-    } else {
-      expect(extensions).toNotThrow();
-      expect(seal).toNotThrow();
-      expect(freeze).toNotThrow();
-    }
+    expect(extensions).not.toThrow();
+    expect(seal).not.toThrow();
+    expect(freeze).not.toThrow();
     done();
   });
 

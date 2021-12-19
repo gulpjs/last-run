@@ -1,12 +1,12 @@
 <p align="center">
-  <a href="http://gulpjs.com">
+  <a href="https://gulpjs.com">
     <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">
   </a>
 </p>
 
 # last-run
 
-[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Build Status][travis-image]][travis-url] [![AppVeyor Build Status][appveyor-image]][appveyor-url] [![Coveralls Status][coveralls-image]][coveralls-url] [![Gitter chat][gitter-image]][gitter-url]
+[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Build Status][ci-image]][ci-url] [![Coveralls Status][coveralls-image]][coveralls-url]
 
 Capture and retrieve the last time a function was run.
 
@@ -43,10 +43,6 @@ On node v0.10 or with file system like HFS or FAT, `fs.stat` time attributes lik
 
 Assuming `lastRun(fn)` returns 1426000001111, `lastRun(fn, 1000)` returns 1426000001000.
 
-The default time resolution is 1000 on node v0.10, 0 on node 0.11+ and iojs.
-More information at [`default-resolution`][default-resolution] and
-[undertaker PR #17][undertaker-17].
-
 ### lastRun.capture(fn, [timestamp])
 
 Takes a function (`fn`) and captures the current timestamp with `Date.now()`.
@@ -61,21 +57,15 @@ Takes a function (`fn`) and removes the last run timestamp for it.
 
 MIT
 
-[default-resolution]: https://github.com/gulpjs/default-resolution
-[undertaker-17]: https://github.com/gulpjs/undertaker/pull/17#issuecomment-82374512
 
-[downloads-image]: http://img.shields.io/npm/dm/last-run.svg
+<!-- prettier-ignore-start -->
+[downloads-image]: https://img.shields.io/npm/dm/last-run.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/last-run
-[npm-image]: http://img.shields.io/npm/v/last-run.svg
+[npm-image]: https://img.shields.io/npm/v/last-run.svg?style=flat-square
 
-[travis-url]: https://travis-ci.org/gulpjs/last-run
-[travis-image]: http://img.shields.io/travis/gulpjs/last-run.svg?label=travis-ci
-
-[appveyor-url]: https://ci.appveyor.com/project/gulpjs/last-run
-[appveyor-image]: https://img.shields.io/appveyor/ci/gulpjs/last-run.svg?label=appveyor
+[ci-url]: https://github.com/gulpjs/last-run/actions?query=workflow:dev
+[ci-image]: https://img.shields.io/github/workflow/status/gulpjs/last-run/dev?style=flat-square
 
 [coveralls-url]: https://coveralls.io/r/gulpjs/last-run
-[coveralls-image]: http://img.shields.io/coveralls/gulpjs/last-run/master.svg
-
-[gitter-url]: https://gitter.im/gulpjs/gulp
-[gitter-image]: https://badges.gitter.im/gulpjs/gulp.svg
+[coveralls-image]: https://img.shields.io/coveralls/gulpjs/last-run/master.svg?style=flat-square
+<!-- prettier-ignore-end -->
