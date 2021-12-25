@@ -41,8 +41,6 @@ The timestamp is always given in millisecond but the time resolution can be redu
 The use case is to be able to compare a build time to a file time attribute.
 On node v0.10 or with file system like HFS or FAT, `fs.stat` time attributes like `mtime` precision is one second.
 
-Assuming `lastRun(fn)` returns 1426000001111, `lastRun(fn, 1000)` returns 1426000001000.
-
 ### lastRun.capture(fn, [timestamp])
 
 Takes a function (`fn`) and captures the current timestamp with `Date.now()`.
