@@ -144,30 +144,4 @@ describe('lastRun', function() {
     done();
   });
 
-  it('throws on non-enumerable functions when using weakmap shim', function(done) {
-
-    function extensions() {
-      var test = function() {};
-      Object.preventExtensions(test);
-      lastRun.capture(test);
-    }
-
-    function seal() {
-      var test = function() {};
-      Object.seal(test);
-      lastRun.capture(test);
-    }
-
-    function freeze() {
-      var test = function() {};
-      Object.freeze(test);
-      lastRun.capture(test);
-    }
-
-    expect(extensions).not.toThrow();
-    expect(seal).not.toThrow();
-    expect(freeze).not.toThrow();
-    done();
-  });
-
 });
