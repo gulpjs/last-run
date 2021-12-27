@@ -39,7 +39,7 @@ Returns undefined if the function has not been captured.
 
 The timestamp is always given in millisecond but the time resolution can be reduced (rounded down).
 The use case is to be able to compare a build time to a file time attribute.
-On node v0.10 or with file system like HFS or FAT, `fs.stat` time attributes like `mtime` precision is one second.
+On some file systems, `fs.stat` time attributes like `mtime` might have one second precision.
 
 ### lastRun.capture(fn, [timestamp])
 
