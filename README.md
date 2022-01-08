@@ -28,9 +28,6 @@ lastRun(myFunc);
 
 ## API
 
-__Note: this module uses a WeakMap shim, and throws on non-extensible functions on platforms that
-don't have a native WeakMap implementation__
-
 ### lastRun(fn, [timeResolution]) => [Timestamp]
 
 Takes a function (`fn`) and returns a timestamp of the last time the function was captured.
