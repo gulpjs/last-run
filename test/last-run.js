@@ -4,21 +4,22 @@ var expect = require('expect');
 
 var lastRun = require('../');
 
-describe('lastRun', function() {
+describe('lastRun', function () {
 
   var since;
 
-  beforeEach(function(done) {
+  beforeEach(function (done) {
     since = Date.now();
     done();
   });
 
-  it('should record function capture time', function(done) {
-    function test() {}
+  it('should record function capture time', function (done) {
+    function test() { }
+
+    var beforeRun = Date.now();
 
     lastRun.capture(test);
 
-    var beforeRun = Date.now();
     var justRun = lastRun(test);
     var afterRun = Date.now();
     expect(justRun).toBeGreaterThanOrEqual(beforeRun);
@@ -26,8 +27,8 @@ describe('lastRun', function() {
     done();
   });
 
-  it('should accept a timestamp', function(done) {
-    function test() {}
+  it('should accept a timestamp', function (done) {
+    function test() { }
 
     lastRun.capture(test, since);
 
@@ -35,12 +36,13 @@ describe('lastRun', function() {
     done();
   });
 
-  it('removes last run time with release method', function(done) {
-    function test() {}
+  it('removes last run time with release method', function (done) {
+    function test() { }
+
+    var beforeRun = Date.now();
 
     lastRun.capture(test);
 
-    var beforeRun = Date.now();
     var justRun = lastRun(test);
     var afterRun = Date.now();
     expect(justRun).toBeGreaterThanOrEqual(beforeRun);
@@ -52,8 +54,8 @@ describe('lastRun', function() {
     done();
   });
 
-  it('does not error on release if not captures', function(done) {
-    function test() {}
+  it('does not error on release if not captures', function (done) {
+    function test() { }
 
     lastRun.release(test);
 
@@ -61,14 +63,14 @@ describe('lastRun', function() {
     done();
   });
 
-  it('should return undefined for a function not captured', function(done) {
-    function test() {}
+  it('should return undefined for a function not captured', function (done) {
+    function test() { }
 
     expect(lastRun(test)).toBeUndefined();
     done();
   });
 
-  it('should throw on non-functions', function(done) {
+  it('should throw on non-functions', function (done) {
     function obj() {
       lastRun({});
     }
@@ -97,12 +99,13 @@ describe('lastRun', function() {
     done();
   });
 
-  it('works with anonymous functions', function(done) {
-    var test = function() {};
+  it('works with anonymous functions', function (done) {
+    var test = function () { };
+
+    var beforeRun = Date.now();
 
     lastRun.capture(test);
 
-    var beforeRun = Date.now();
     var justRun = lastRun(test);
     var afterRun = Date.now();
     expect(justRun).toBeGreaterThanOrEqual(beforeRun);
@@ -110,34 +113,34 @@ describe('lastRun', function() {
     done();
   });
 
-  it('should give time with 1s resolution', function(done) {
+  it('should give time with 1s resolution', function (done) {
     var resolution = 1000; // 1s
     since = Date.now();
     since = since - (since % resolution);
 
-    function test() {}
+    function test() { }
     lastRun.capture(test);
 
     expect(lastRun(test, resolution)).toEqual(since);
     done();
   });
 
-  it('should accept a string for resolution', function(done) {
+  it('should accept a string for resolution', function (done) {
     var resolution = '1000'; // 1s
     since = Date.now();
     since = since - (since % 1000);
 
-    function test() {}
+    function test() { }
     lastRun.capture(test);
 
     expect(lastRun(test, resolution)).toEqual(since);
     done();
   });
 
-  it('should use default resolution when forced to 0ms resolution', function(done) {
+  it('should use default resolution when forced to 0ms resolution', function (done) {
     var resolution = 0;
 
-    function test() {}
+    function test() { }
     lastRun.capture(test);
 
     expect(lastRun(test, resolution)).toEqual(since);
