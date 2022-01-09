@@ -5,7 +5,6 @@ var expect = require('expect');
 var lastRun = require('../');
 
 describe('lastRun', function () {
-
   var since;
 
   beforeEach(function (done) {
@@ -14,7 +13,7 @@ describe('lastRun', function () {
   });
 
   it('should record function capture time', function (done) {
-    function test() { }
+    function test() {}
 
     var beforeRun = Date.now();
 
@@ -28,7 +27,7 @@ describe('lastRun', function () {
   });
 
   it('should accept a timestamp', function (done) {
-    function test() { }
+    function test() {}
 
     lastRun.capture(test, since);
 
@@ -37,7 +36,7 @@ describe('lastRun', function () {
   });
 
   it('removes last run time with release method', function (done) {
-    function test() { }
+    function test() {}
 
     var beforeRun = Date.now();
 
@@ -55,7 +54,7 @@ describe('lastRun', function () {
   });
 
   it('does not error on release if not captures', function (done) {
-    function test() { }
+    function test() {}
 
     lastRun.release(test);
 
@@ -64,7 +63,7 @@ describe('lastRun', function () {
   });
 
   it('should return undefined for a function not captured', function (done) {
-    function test() { }
+    function test() {}
 
     expect(lastRun(test)).toBeUndefined();
     done();
@@ -100,7 +99,7 @@ describe('lastRun', function () {
   });
 
   it('works with anonymous functions', function (done) {
-    var test = function () { };
+    var test = function () {};
 
     var beforeRun = Date.now();
 
@@ -118,7 +117,7 @@ describe('lastRun', function () {
     since = Date.now();
     since = since - (since % resolution);
 
-    function test() { }
+    function test() {}
     lastRun.capture(test);
 
     expect(lastRun(test, resolution)).toEqual(since);
@@ -130,7 +129,7 @@ describe('lastRun', function () {
     since = Date.now();
     since = since - (since % 1000);
 
-    function test() { }
+    function test() {}
     lastRun.capture(test);
 
     expect(lastRun(test, resolution)).toEqual(since);
@@ -140,11 +139,10 @@ describe('lastRun', function () {
   it('should use default resolution when forced to 0ms resolution', function (done) {
     var resolution = 0;
 
-    function test() { }
+    function test() {}
     lastRun.capture(test);
 
     expect(lastRun(test, resolution)).toEqual(since);
     done();
   });
-
 });

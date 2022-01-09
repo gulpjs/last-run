@@ -15,7 +15,7 @@ Capture and retrieve the last time a function was run.
 ```js
 var lastRun = require('last-run');
 
-function myFunc(){}
+function myFunc() {}
 
 myFunc();
 // capture the run after (or before) calling the function
@@ -51,7 +51,6 @@ Takes a function (`fn`) and removes the last run timestamp for it.
 ## License
 
 MIT
-
 
 <!-- prettier-ignore-start -->
 [downloads-image]: https://img.shields.io/npm/dm/last-run.svg?style=flat-square

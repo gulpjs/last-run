@@ -5,7 +5,7 @@ var assert = require('assert');
 var runtimes = new WeakMap();
 
 function isFunction(fn) {
-  return (typeof fn === 'function');
+  return typeof fn === 'function';
 }
 
 function lastRun(fn, timeResolution) {
