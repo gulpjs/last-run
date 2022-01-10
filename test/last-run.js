@@ -142,7 +142,7 @@ describe('lastRun', function () {
     function test() {}
     lastRun.capture(test);
 
-    expect(lastRun(test, resolution)).toEqual(since);
+    expect(lastRun(test, resolution)).toBeGreaterThanOrEqual(since);
     done();
   });
 });
