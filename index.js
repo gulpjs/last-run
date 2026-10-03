@@ -1,15 +1,15 @@
-'use strict';
+"use strict";
 
-var assert = require('assert');
+var assert = require("assert");
 
 var runtimes = new WeakMap();
 
 function isFunction(fn) {
-  return typeof fn === 'function';
+  return typeof fn === "function";
 }
 
 function lastRun(fn, timeResolution) {
-  assert(isFunction(fn), 'Only functions can check lastRun');
+  assert(isFunction(fn), "Only functions can check lastRun");
 
   var time = runtimes.get(fn);
 
@@ -23,7 +23,7 @@ function lastRun(fn, timeResolution) {
 }
 
 function capture(fn, timestamp) {
-  assert(isFunction(fn), 'Only functions can be captured');
+  assert(isFunction(fn), "Only functions can be captured");
 
   timestamp = timestamp || Date.now();
 
@@ -31,7 +31,7 @@ function capture(fn, timestamp) {
 }
 
 function release(fn) {
-  assert(isFunction(fn), 'Only functions can be captured');
+  assert(isFunction(fn), "Only functions can be captured");
 
   runtimes.delete(fn);
 }

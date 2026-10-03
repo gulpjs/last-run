@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
-var expect = require('expect');
+var expect = require("expect");
 
-var lastRun = require('../');
+var lastRun = require("../");
 
-describe('lastRun', function () {
+describe("lastRun", function () {
   var since;
 
   beforeEach(function (done) {
@@ -12,7 +12,7 @@ describe('lastRun', function () {
     done();
   });
 
-  it('should record function capture time', function (done) {
+  it("should record function capture time", function (done) {
     function test() {}
 
     var beforeRun = Date.now();
@@ -26,7 +26,7 @@ describe('lastRun', function () {
     done();
   });
 
-  it('should accept a timestamp', function (done) {
+  it("should accept a timestamp", function (done) {
     function test() {}
 
     lastRun.capture(test, since);
@@ -35,7 +35,7 @@ describe('lastRun', function () {
     done();
   });
 
-  it('removes last run time with release method', function (done) {
+  it("removes last run time with release method", function (done) {
     function test() {}
 
     var beforeRun = Date.now();
@@ -53,7 +53,7 @@ describe('lastRun', function () {
     done();
   });
 
-  it('does not error on release if not captures', function (done) {
+  it("does not error on release if not captures", function (done) {
     function test() {}
 
     lastRun.release(test);
@@ -62,20 +62,20 @@ describe('lastRun', function () {
     done();
   });
 
-  it('should return undefined for a function not captured', function (done) {
+  it("should return undefined for a function not captured", function (done) {
     function test() {}
 
     expect(lastRun(test)).toBeUndefined();
     done();
   });
 
-  it('should throw on non-functions', function (done) {
+  it("should throw on non-functions", function (done) {
     function obj() {
       lastRun({});
     }
 
     function str() {
-      lastRun('wat');
+      lastRun("wat");
     }
 
     function num() {
@@ -90,15 +90,15 @@ describe('lastRun', function () {
       lastRun(null);
     }
 
-    expect(obj).toThrow('Only functions can check lastRun');
-    expect(str).toThrow('Only functions can check lastRun');
-    expect(num).toThrow('Only functions can check lastRun');
-    expect(undef).toThrow('Only functions can check lastRun');
-    expect(nul).toThrow('Only functions can check lastRun');
+    expect(obj).toThrow("Only functions can check lastRun");
+    expect(str).toThrow("Only functions can check lastRun");
+    expect(num).toThrow("Only functions can check lastRun");
+    expect(undef).toThrow("Only functions can check lastRun");
+    expect(nul).toThrow("Only functions can check lastRun");
     done();
   });
 
-  it('works with anonymous functions', function (done) {
+  it("works with anonymous functions", function (done) {
     var test = function () {};
 
     var beforeRun = Date.now();
@@ -112,7 +112,7 @@ describe('lastRun', function () {
     done();
   });
 
-  it('should give time with 1s resolution', function (done) {
+  it("should give time with 1s resolution", function (done) {
     var resolution = 1000; // 1s
     since = Date.now();
     since = since - (since % resolution);
@@ -124,8 +124,8 @@ describe('lastRun', function () {
     done();
   });
 
-  it('should accept a string for resolution', function (done) {
-    var resolution = '1000'; // 1s
+  it("should accept a string for resolution", function (done) {
+    var resolution = "1000"; // 1s
     since = Date.now();
     since = since - (since % 1000);
 
@@ -136,7 +136,7 @@ describe('lastRun', function () {
     done();
   });
 
-  it('should use default resolution when forced to 0ms resolution', function (done) {
+  it("should use default resolution when forced to 0ms resolution", function (done) {
     var resolution = 0;
 
     function test() {}
