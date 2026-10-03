@@ -48,6 +48,16 @@ The captured timestamp can then be retrieved using the `lastRun` function.
 
 Takes a function (`fn`) and removes the last run timestamp for it.
 
+## Strict No LLM / No AI Policy
+
+No LLMs for issues.
+
+No LLMs for patches / pull requests.
+
+No LLMs for comments on the bug tracker, including translation.
+
+English is encouraged, but not required. You are welcome to post in your native language and rely on others to have their own translation tools of choice to interpret your words.
+
 ## License
 
 MIT
@@ -57,9 +67,9 @@ MIT
 [npm-url]: https://www.npmjs.com/package/last-run
 [npm-image]: https://img.shields.io/npm/v/last-run.svg?style=flat-square
 
-[ci-url]: https://github.com/gulpjs/last-run/actions?query=workflow:dev
-[ci-image]: https://img.shields.io/github/actions/workflow/status/gulpjs/last-run/dev.yml?branch=master&style=flat-square
+[ci-url]: https://github.com/gulpjs/last-run/actions/workflows/dev.yml
+[ci-image]: https://img.shields.io/github/actions/workflow/status/gulpjs/last-run/dev.yml?style=flat-square
 
 [coveralls-url]: https://coveralls.io/r/gulpjs/last-run
-[coveralls-image]: https://img.shields.io/coveralls/gulpjs/last-run/master.svg?style=flat-square
+[coveralls-image]: https://img.shields.io/coveralls/gulpjs/last-run/main.svg?style=flat-square
 <!-- prettier-ignore-end -->
