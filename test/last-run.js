@@ -1,75 +1,68 @@
 "use strict";
 
-var expect = require("expect");
+var assert = require("node:assert");
+var { beforeEach, describe, it } = require("node:test");
 
 var lastRun = require("../");
 
 describe("lastRun", function () {
   var since;
 
-  beforeEach(function (done) {
+  beforeEach(function () {
     since = Date.now();
-    done();
   });
 
-  it("should record function capture time", function (done) {
+  it("should record function capture time", function () {
     function test() {}
 
     var beforeRun = Date.now();
 
     lastRun.capture(test);
 
-    var justRun = lastRun(test);
     var afterRun = Date.now();
-    expect(justRun).toBeGreaterThanOrEqual(beforeRun);
-    expect(justRun).toBeLessThanOrEqual(afterRun);
-    done();
+    assert.ok(lastRun(test) >= beforeRun);
+    assert.ok(lastRun(test) <= afterRun);
   });
 
-  it("should accept a timestamp", function (done) {
+  it("should accept a timestamp", function () {
     function test() {}
 
     lastRun.capture(test, since);
-
-    expect(lastRun(test)).toEqual(since);
-    done();
+    assert.deepStrictEqual(lastRun(test), since);
   });
 
-  it("removes last run time with release method", function (done) {
+  it("removes last run time with release method", function () {
     function test() {}
 
     var beforeRun = Date.now();
 
     lastRun.capture(test);
 
-    var justRun = lastRun(test);
     var afterRun = Date.now();
-    expect(justRun).toBeGreaterThanOrEqual(beforeRun);
-    expect(justRun).toBeLessThanOrEqual(afterRun);
+
+    assert.ok(lastRun(test) >= beforeRun);
+    assert.ok(lastRun(test) <= afterRun);
 
     lastRun.release(test);
 
-    expect(lastRun(test)).toBeUndefined();
-    done();
+    assert.deepStrictEqual(lastRun.release(test), undefined);
   });
 
-  it("does not error on release if not captures", function (done) {
+  it("does not error on release if not captures", function () {
     function test() {}
 
     lastRun.release(test);
 
-    expect(lastRun(test)).toBeUndefined();
-    done();
+    assert.deepStrictEqual(lastRun(test), undefined);
   });
 
-  it("should return undefined for a function not captured", function (done) {
+  it("should return undefined for a function not captured", function () {
     function test() {}
 
-    expect(lastRun(test)).toBeUndefined();
-    done();
+    assert.deepStrictEqual(lastRun(test), undefined);
   });
 
-  it("should throw on non-functions", function (done) {
+  it("should throw on non-functions", function () {
     function obj() {
       lastRun({});
     }
@@ -90,15 +83,38 @@ describe("lastRun", function () {
       lastRun(null);
     }
 
-    expect(obj).toThrow("Only functions can check lastRun");
-    expect(str).toThrow("Only functions can check lastRun");
-    expect(num).toThrow("Only functions can check lastRun");
-    expect(undef).toThrow("Only functions can check lastRun");
-    expect(nul).toThrow("Only functions can check lastRun");
-    done();
+    assert.throws(obj, {
+      name: "AssertionError",
+      code: "ERR_ASSERTION",
+      message: "Only functions can check lastRun",
+    });
+
+    assert.throws(str, {
+      name: "AssertionError",
+      code: "ERR_ASSERTION",
+      message: "Only functions can check lastRun",
+    });
+
+    assert.throws(num, {
+      name: "AssertionError",
+      code: "ERR_ASSERTION",
+      message: "Only functions can check lastRun",
+    });
+
+    assert.throws(undef, {
+      name: "AssertionError",
+      code: "ERR_ASSERTION",
+      message: "Only functions can check lastRun",
+    });
+
+    assert.throws(nul, {
+      name: "AssertionError",
+      code: "ERR_ASSERTION",
+      message: "Only functions can check lastRun",
+    });
   });
 
-  it("works with anonymous functions", function (done) {
+  it("works with anonymous functions", function () {
     var test = function () {};
 
     var beforeRun = Date.now();
@@ -107,12 +123,11 @@ describe("lastRun", function () {
 
     var justRun = lastRun(test);
     var afterRun = Date.now();
-    expect(justRun).toBeGreaterThanOrEqual(beforeRun);
-    expect(justRun).toBeLessThanOrEqual(afterRun);
-    done();
+    assert.ok(justRun >= beforeRun);
+    assert.ok(justRun <= afterRun);
   });
 
-  it("should give time with 1s resolution", function (done) {
+  it("should give time with 1s resolution", function () {
     var resolution = 1000; // 1s
     since = Date.now();
     since = since - (since % resolution);
@@ -120,29 +135,27 @@ describe("lastRun", function () {
     function test() {}
     lastRun.capture(test);
 
-    expect(lastRun(test, resolution)).toEqual(since);
-    done();
+    assert.deepStrictEqual(lastRun(test, resolution), since);
   });
 
-  it("should accept a string for resolution", function (done) {
+  it("should accept a string for resolution", function () {
     var resolution = "1000"; // 1s
     since = Date.now();
     since = since - (since % 1000);
 
     function test() {}
     lastRun.capture(test);
+    var result = lastRun(test, resolution);
 
-    expect(lastRun(test, resolution)).toEqual(since);
-    done();
+    assert.deepStrictEqual(result, since);
   });
 
-  it("should use default resolution when forced to 0ms resolution", function (done) {
+  it("should use default resolution when forced to 0ms resolution", function () {
     var resolution = 0;
 
     function test() {}
     lastRun.capture(test);
 
-    expect(lastRun(test, resolution)).toBeGreaterThanOrEqual(since);
-    done();
+    assert.ok(lastRun(test, resolution) >= since);
   });
 });
