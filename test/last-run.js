@@ -1,12 +1,12 @@
 "use strict";
 
-var assert = require("node:assert");
-var { beforeEach, describe, it } = require("node:test");
+const assert = require("node:assert");
+const { beforeEach, describe, it } = require("node:test");
 
-var lastRun = require("../");
+const lastRun = require("../");
 
 describe("lastRun", function () {
-  var since;
+  let since;
 
   beforeEach(function () {
     since = Date.now();
@@ -15,11 +15,11 @@ describe("lastRun", function () {
   it("should record function capture time", function () {
     function test() {}
 
-    var beforeRun = Date.now();
+    const beforeRun = Date.now();
 
     lastRun.capture(test);
 
-    var afterRun = Date.now();
+    const afterRun = Date.now();
     assert.ok(lastRun(test) >= beforeRun);
     assert.ok(lastRun(test) <= afterRun);
   });
@@ -34,11 +34,11 @@ describe("lastRun", function () {
   it("removes last run time with release method", function () {
     function test() {}
 
-    var beforeRun = Date.now();
+    const beforeRun = Date.now();
 
     lastRun.capture(test);
 
-    var afterRun = Date.now();
+    const afterRun = Date.now();
 
     assert.ok(lastRun(test) >= beforeRun);
     assert.ok(lastRun(test) <= afterRun);
@@ -115,20 +115,20 @@ describe("lastRun", function () {
   });
 
   it("works with anonymous functions", function () {
-    var test = function () {};
+    const test = function () {};
 
-    var beforeRun = Date.now();
+    const beforeRun = Date.now();
 
     lastRun.capture(test);
 
-    var justRun = lastRun(test);
-    var afterRun = Date.now();
+    const justRun = lastRun(test);
+    const afterRun = Date.now();
     assert.ok(justRun >= beforeRun);
     assert.ok(justRun <= afterRun);
   });
 
   it("should give time with 1s resolution", function () {
-    var resolution = 1000; // 1s
+    const resolution = 1000; // 1s
     since = Date.now();
     since = since - (since % resolution);
 
@@ -139,19 +139,19 @@ describe("lastRun", function () {
   });
 
   it("should accept a string for resolution", function () {
-    var resolution = "1000"; // 1s
+    const resolution = "1000"; // 1s
     since = Date.now();
     since = since - (since % 1000);
 
     function test() {}
     lastRun.capture(test);
-    var result = lastRun(test, resolution);
+    const result = lastRun(test, resolution);
 
     assert.deepStrictEqual(result, since);
   });
 
   it("should use default resolution when forced to 0ms resolution", function () {
-    var resolution = 0;
+    const resolution = 0;
 
     function test() {}
     lastRun.capture(test);
