@@ -13,7 +13,7 @@ Capture and retrieve the last time a function was run.
 ## Usage
 
 ```js
-const lastRun = require("last-run");
+import lastRun from "last-run";
 
 function myFunc() {}
 

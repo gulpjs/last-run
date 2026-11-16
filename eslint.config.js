@@ -1,3 +1,3 @@
-const gulpConfig = require("eslint-config-gulp");
+import gulpConfig from "eslint-config-gulp";
 
-module.exports = [...gulpConfig.default];
+export default [...gulpConfig];

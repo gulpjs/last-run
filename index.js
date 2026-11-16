@@ -1,6 +1,6 @@
 "use strict";
 
-const assert = require("assert");
+import assert from "node:assert";
 
 const runtimes = new WeakMap();
 
@@ -39,4 +39,4 @@ function release(fn) {
 lastRun.capture = capture;
 lastRun.release = release;
 
-module.exports = lastRun;
+export default lastRun;

@@ -1,9 +1,9 @@
 "use strict";
 
-const assert = require("node:assert");
-const { beforeEach, describe, it } = require("node:test");
+import assert from "node:assert";
+import { beforeEach, describe, it } from "node:test";
 
-const lastRun = require("../");
+import lastRun from "../index.js";
 
 describe("lastRun", function () {
   let since;
