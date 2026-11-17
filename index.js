@@ -1,8 +1,8 @@
 "use strict";
 
-var assert = require("assert");
+const assert = require("assert");
 
-var runtimes = new WeakMap();
+const runtimes = new WeakMap();
 
 function isFunction(fn) {
   return typeof fn === "function";
@@ -11,13 +11,13 @@ function isFunction(fn) {
 function lastRun(fn, timeResolution) {
   assert(isFunction(fn), "Only functions can check lastRun");
 
-  var time = runtimes.get(fn);
+  const time = runtimes.get(fn);
 
   if (time == null) {
     return;
   }
 
-  var resolution = parseInt(timeResolution, 10) || 1;
+  const resolution = parseInt(timeResolution, 10) || 1;
 
   return time - (time % resolution);
 }
