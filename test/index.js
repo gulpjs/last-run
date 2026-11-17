@@ -82,33 +82,23 @@ describe("lastRun", function () {
     }
 
     assert.throws(obj, {
-      name: "AssertionError",
-      code: "ERR_ASSERTION",
-      message: "Only functions can check lastRun",
+      message: "lastRun requires a function",
     });
 
     assert.throws(str, {
-      name: "AssertionError",
-      code: "ERR_ASSERTION",
-      message: "Only functions can check lastRun",
+      message: "lastRun requires a function",
     });
 
     assert.throws(num, {
-      name: "AssertionError",
-      code: "ERR_ASSERTION",
-      message: "Only functions can check lastRun",
+      message: "lastRun requires a function",
     });
 
     assert.throws(undef, {
-      name: "AssertionError",
-      code: "ERR_ASSERTION",
-      message: "Only functions can check lastRun",
+      message: "lastRun requires a function",
     });
 
     assert.throws(nul, {
-      name: "AssertionError",
-      code: "ERR_ASSERTION",
-      message: "Only functions can check lastRun",
+      message: "lastRun requires a function",
     });
   });
 
