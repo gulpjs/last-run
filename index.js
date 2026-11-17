@@ -11,7 +11,7 @@ function isFunction(fn) {
 function lastRun(fn, timeResolution) {
   assert(isFunction(fn), "Only functions can check lastRun");
 
-  let time = runtimes.get(fn);
+  const time = runtimes.get(fn);
 
   if (time == null) {
     return;
