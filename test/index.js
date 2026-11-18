@@ -158,10 +158,10 @@ describe("lastRun", function () {
   });
 
   it("should use default resolution when given a unparsable resolution", function () {
-    const resolution = NaN;
+    const resolution = "a";
 
     function test() {}
-    lastRun.capture(test);
+    capture(test);
 
     assert.ok(lastRun(test, resolution) >= since);
   });
