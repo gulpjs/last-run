@@ -8,7 +8,7 @@ function isFunction(fn) {
   return typeof fn === "function";
 }
 
-function lastRun(fn, timeResolution) {
+export default function lastRun(fn, timeResolution) {
   assert(isFunction(fn), "Only functions can check lastRun");
 
   const time = runtimes.get(fn);
@@ -22,7 +22,7 @@ function lastRun(fn, timeResolution) {
   return time - (time % resolution);
 }
 
-function capture(fn, timestamp) {
+export function capture(fn, timestamp) {
   assert(isFunction(fn), "Only functions can be captured");
 
   timestamp = timestamp || Date.now();
@@ -30,13 +30,8 @@ function capture(fn, timestamp) {
   runtimes.set(fn, timestamp);
 }
 
-function release(fn) {
+export function release(fn) {
   assert(isFunction(fn), "Only functions can be captured");
 
   runtimes.delete(fn);
 }
-
-lastRun.capture = capture;
-lastRun.release = release;
-
-export default lastRun;

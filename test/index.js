@@ -3,7 +3,7 @@
 import assert from "node:assert";
 import { beforeEach, describe, it } from "node:test";
 
-import lastRun from "../index.js";
+import lastRun, { capture, release } from "../index.js";
 
 describe("lastRun", function () {
   let since;
@@ -17,7 +17,7 @@ describe("lastRun", function () {
 
     const beforeRun = Date.now();
 
-    lastRun.capture(test);
+    capture(test);
 
     const afterRun = Date.now();
     assert.ok(lastRun(test) >= beforeRun);
@@ -27,7 +27,7 @@ describe("lastRun", function () {
   it("should accept a timestamp", function () {
     function test() {}
 
-    lastRun.capture(test, since);
+    capture(test, since);
     assert.deepStrictEqual(lastRun(test), since);
   });
 
@@ -36,22 +36,22 @@ describe("lastRun", function () {
 
     const beforeRun = Date.now();
 
-    lastRun.capture(test);
+    capture(test);
 
     const afterRun = Date.now();
 
     assert.ok(lastRun(test) >= beforeRun);
     assert.ok(lastRun(test) <= afterRun);
 
-    lastRun.release(test);
+    release(test);
 
-    assert.deepStrictEqual(lastRun.release(test), undefined);
+    assert.deepStrictEqual(release(test), undefined);
   });
 
   it("does not error on release if not captures", function () {
     function test() {}
 
-    lastRun.release(test);
+    release(test);
 
     assert.deepStrictEqual(lastRun(test), undefined);
   });
@@ -119,7 +119,7 @@ describe("lastRun", function () {
 
     const beforeRun = Date.now();
 
-    lastRun.capture(test);
+    capture(test);
 
     const justRun = lastRun(test);
     const afterRun = Date.now();
@@ -133,7 +133,7 @@ describe("lastRun", function () {
     since = since - (since % resolution);
 
     function test() {}
-    lastRun.capture(test);
+    capture(test);
 
     assert.deepStrictEqual(lastRun(test, resolution), since);
   });
@@ -144,7 +144,7 @@ describe("lastRun", function () {
     since = since - (since % 1000);
 
     function test() {}
-    lastRun.capture(test);
+    capture(test);
     const result = lastRun(test, resolution);
 
     assert.deepStrictEqual(result, since);
@@ -154,7 +154,7 @@ describe("lastRun", function () {
     const resolution = 0;
 
     function test() {}
-    lastRun.capture(test);
+    capture(test);
 
     assert.ok(lastRun(test, resolution) >= since);
   });

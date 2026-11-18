@@ -13,17 +13,20 @@ Capture and retrieve the last time a function was run.
 ## Usage
 
 ```js
-import lastRun from "last-run";
+import lastRun, { capture, release } from "last-run";
 
 function myFunc() {}
 
 myFunc();
 // capture the run after (or before) calling the function
-lastRun.capture(myFunc);
+capture(myFunc);
 
 // retrieve the last run time
 lastRun(myFunc);
 //-> outputs the Date.now() when capture was called
+
+release(myFunc);
+//-> release runtimes
 ```
 
 ## API
@@ -38,13 +41,13 @@ The timestamp is always given in millisecond but the time resolution can be redu
 The use case is to be able to compare a build time to a file time attribute.
 On some file systems, `fs.stat` time attributes like `mtime` might have one second precision.
 
-### lastRun.capture(fn, [timestamp])
+### capture(fn, [timestamp])
 
 Takes a function (`fn`) and captures the current timestamp with `Date.now()`.
 If passed the optional timestamp, captures that time instead of `Date.now()`.
 The captured timestamp can then be retrieved using the `lastRun` function.
 
-### lastRun.release(fn)
+### release(fn)
 
 Takes a function (`fn`) and removes the last run timestamp for it.
 
