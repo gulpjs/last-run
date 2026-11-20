@@ -3,11 +3,14 @@ import { beforeEach, describe, it } from "node:test";
 
 import lastRun, { capture, release } from "../index.js";
 
-describe("lastRun", function () {
-  let since;
-
-  beforeEach(function () {
-    since = Date.now();
+describe("capture", function () {
+  it("rejects non-functions", function () {
+    for (const value of [{}, "wat", 1, undefined, null]) {
+      assert.throws(() => capture(value), {
+        name: "TypeError",
+        message: "capture requires a function",
+      });
+    }
   });
 
   it("should record function capture time", function () {
@@ -24,34 +27,25 @@ describe("lastRun", function () {
 
   it("should accept a timestamp", function () {
     function test() {}
+    capture(test, 1234567);
+    assert.deepStrictEqual(lastRun(test), 1234567);
+  });
+});
 
-    capture(test, since);
-    assert.deepStrictEqual(lastRun(test), since);
+describe("lastRun", function () {
+  let since;
+
+  beforeEach(function () {
+    since = Date.now();
   });
 
-  it("removes last run time with release method", function () {
-    function test() {}
-
-    const beforeRun = Date.now();
-
-    capture(test);
-
-    const afterRun = Date.now();
-
-    assert.ok(lastRun(test) >= beforeRun);
-    assert.ok(lastRun(test) <= afterRun);
-
-    release(test);
-
-    assert.deepStrictEqual(release(test), undefined);
-  });
-
-  it("does not error on release if not captures", function () {
-    function test() {}
-
-    release(test);
-
-    assert.deepStrictEqual(lastRun(test), undefined);
+  it("rejects non-functions", function () {
+    for (const value of [{}, "wat", 1, undefined, null]) {
+      assert.throws(() => capture(value), {
+        name: "TypeError",
+        message: "capture requires a function",
+      });
+    }
   });
 
   it("should return undefined for a function not captured", function () {
@@ -60,56 +54,13 @@ describe("lastRun", function () {
     assert.deepStrictEqual(lastRun(test), undefined);
   });
 
-  it("should throw on non-functions", function () {
-    function obj() {
-      lastRun({});
+  it("rejects non-functions", function () {
+    for (const value of [{}, "wat", 1, undefined, null]) {
+      assert.throws(() => lastRun(value), {
+        name: "TypeError",
+        message: "lastRun requires a function",
+      });
     }
-
-    function str() {
-      lastRun("wat");
-    }
-
-    function num() {
-      lastRun(1);
-    }
-
-    function undef() {
-      lastRun(undefined);
-    }
-
-    function nul() {
-      lastRun(null);
-    }
-
-    assert.throws(obj, {
-      name: "AssertionError",
-      code: "ERR_ASSERTION",
-      message: "Only functions can check lastRun",
-    });
-
-    assert.throws(str, {
-      name: "AssertionError",
-      code: "ERR_ASSERTION",
-      message: "Only functions can check lastRun",
-    });
-
-    assert.throws(num, {
-      name: "AssertionError",
-      code: "ERR_ASSERTION",
-      message: "Only functions can check lastRun",
-    });
-
-    assert.throws(undef, {
-      name: "AssertionError",
-      code: "ERR_ASSERTION",
-      message: "Only functions can check lastRun",
-    });
-
-    assert.throws(nul, {
-      name: "AssertionError",
-      code: "ERR_ASSERTION",
-      message: "Only functions can check lastRun",
-    });
   });
 
   it("works with anonymous functions", function () {
@@ -164,5 +115,41 @@ describe("lastRun", function () {
     capture(test);
 
     assert.ok(lastRun(test, resolution) >= since);
+  });
+});
+
+describe("release", function () {
+  it("rejects non-functions", function () {
+    for (const value of [{}, "wat", 1, undefined, null]) {
+      assert.throws(() => release(value), {
+        name: "TypeError",
+        message: "release requires a function",
+      });
+    }
+  });
+
+  it("removes last run time with release method", function () {
+    function test() {}
+
+    const beforeRun = Date.now();
+
+    capture(test);
+
+    const afterRun = Date.now();
+
+    assert.ok(lastRun(test) >= beforeRun);
+    assert.ok(lastRun(test) <= afterRun);
+
+    release(test);
+
+    assert.deepStrictEqual(release(test), undefined);
+  });
+
+  it("does not error on release if not captures", function () {
+    function test() {}
+
+    release(test);
+
+    assert.deepStrictEqual(lastRun(test), undefined);
   });
 });
