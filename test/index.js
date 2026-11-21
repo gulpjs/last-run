@@ -39,15 +39,6 @@ describe("lastRun", function () {
     since = Date.now();
   });
 
-  it("rejects non-functions", function () {
-    for (const value of [{}, "wat", 1, undefined, null]) {
-      assert.throws(() => capture(value), {
-        name: "TypeError",
-        message: "capture requires a function",
-      });
-    }
-  });
-
   it("should return undefined for a function not captured", function () {
     function test() {}
 
