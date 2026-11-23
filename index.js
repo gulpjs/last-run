@@ -17,7 +17,7 @@ function validateFn(fn, operation) {
  * @param {string | number} [timeResolution] Resolution of returned timestamp.
  * @returns {number | undefined} Timestamp of the last time the function was captured.
  */
-export default function lastRun(fn, timeResolution) {
+export default function lastRun(fn, timeResolution = "1") {
   validateFn(fn, "lastRun");
 
   const time = runtimes.get(fn);
@@ -25,7 +25,7 @@ export default function lastRun(fn, timeResolution) {
   if (time == null) {
     return;
   }
-  const resolution = parseInt((timeResolution = "1"), 10) || 1;
+  const resolution = parseInt(timeResolution, 10) || 1;
 
   return time - (time % resolution);
 }
