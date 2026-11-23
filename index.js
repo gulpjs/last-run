@@ -25,8 +25,7 @@ export default function lastRun(fn, timeResolution) {
   if (time == null) {
     return;
   }
-  // @ts-expect-error - parseInt coerces its argument to a string and jsdoc state undefined is allowed for parent function.
-  const resolution = parseInt(timeResolution, 10) || 1;
+  const resolution = parseInt((timeResolution = "1"), 10) || 1;
 
   return time - (time % resolution);
 }
