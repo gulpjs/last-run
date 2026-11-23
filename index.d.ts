@@ -5,7 +5,10 @@
  * @param {string | number} [timeResolution] resolution of returned timestamp.
  * @returns {number | undefined} timestamp of the last time the function was captured.
  */
-export default function lastRun(fn: Function, timeResolution?: string | number): number | undefined;
+export default function lastRun(
+  fn: Function,
+  timeResolution?: string | number,
+): number | undefined;
 /**
  * Capture timestamp of a function.
  *
