@@ -13,7 +13,7 @@ function validateFn(fn, operation) {
 /**
  * Retrieve the last time a function was run.
  *
- * @param {Function} fn The user-provided function.
+ * @param {Function} fn The function to inspect.
  * @param {string | number} [timeResolution] Resolution of returned timestamp.
  * @returns {number | undefined} Timestamp of the last time the function was captured.
  */
@@ -33,7 +33,7 @@ export default function lastRun(fn, timeResolution) {
 /**
  * Stores a timestamp for the given function.
  *
- * @param {Function} fn The user-provided function.
+ * @param {Function} fn The function to track.
  * @param {number} [timestamp] Override of current time.
  */
 export function capture(fn, timestamp) {
