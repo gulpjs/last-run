@@ -2,13 +2,28 @@
 const runtimes = new WeakMap();
 
 /**
- * @param {unknown} fn
- * @param {string} operation
+ * @param {unknown} fn The function to validate.
+ * @param {string} operation The calling function's name for the error message.
  */
 function validateFn(fn, operation) {
   if (typeof fn !== "function") {
     throw new TypeError(`${operation} requires a function`);
   }
+}
+/**
+ * @param {unknown} timeResolution The timeResolution to parse.
+ * @returns {number} The parsed and defaulted resolution.
+ */
+function parseTimeResolution(timeResolution) {
+  if (typeof timeResolution === "number") {
+    return timeResolution || 1;
+  }
+
+  if (typeof timeResolution === "string") {
+    return parseInt(timeResolution, 10) || 1;
+  }
+
+  return 1;
 }
 /**
  * Retrieve the last time a function was run.
@@ -17,7 +32,7 @@ function validateFn(fn, operation) {
  * @param {string | number} [timeResolution] Resolution of returned timestamp.
  * @returns {number | undefined} Timestamp of the last time the function was captured.
  */
-export default function lastRun(fn, timeResolution = "1") {
+export default function lastRun(fn, timeResolution) {
   validateFn(fn, "lastRun");
 
   const time = runtimes.get(fn);
@@ -25,7 +40,7 @@ export default function lastRun(fn, timeResolution = "1") {
   if (time == null) {
     return;
   }
-  const resolution = parseInt(timeResolution, 10) || 1;
+  const resolution = parseTimeResolution(timeResolution);
 
   return time - (time % resolution);
 }
