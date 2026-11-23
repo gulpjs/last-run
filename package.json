@@ -30,8 +30,8 @@
     "format-write": "prettier . --write",
     "lint": "eslint .",
     "test": "node --test --experimental-test-coverage --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=test/lcov.info \"test/*.js\"",
-    "types-check": "tsc index.js --checkJs --noEmit --types ./node.d.ts",
-    "types-write": "tsc index.js --checkJs --declaration --declarationMap --emitDeclarationOnly --types ./node.d.ts"
+    "types-check": "tsc index.js --checkJs --noEmit",
+    "types-write": "tsc index.js --checkJs --declaration --declarationMap --emitDeclarationOnly"
   },
   "devDependencies": {
     "eslint": "10.11.0",

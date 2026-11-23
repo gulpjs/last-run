@@ -1,27 +1,25 @@
 /**
- *  Retrieve the last time a function was run.
+ * Retrieve the last time a function was run.
  *
  * @param {Function} fn The user-provided function.
- * @param {string | number} [timeResolution] resolution of returned timestamp.
- * @returns {number | undefined} timestamp of the last time the function was captured.
+ * @param {string | number} [timeResolution] Resolution of returned timestamp.
+ * @returns {number | undefined} Timestamp of the last time the function was captured.
  */
 export default function lastRun(
   fn: Function,
   timeResolution?: string | number,
 ): number | undefined;
 /**
- * Capture timestamp of a function.
+ * Stores a timestamp for the given function.
  *
  * @param {Function} fn The user-provided function.
- * @param {number} [timestamp] optional override of current time.
- * @returns {void}
+ * @param {number} [timestamp] Override of current time.
  */
 export function capture(fn: Function, timestamp?: number): void;
 /**
- * Remove a given function last run timestamp.
+ * Drops a timestamp for the given function.
  *
- * @param {Function} fn The user-provided function.
- * @returns {void}
+ * @param {Function} fn The function to untrack.
  */
 export function release(fn: Function): void;
 //# sourceMappingURL=index.d.ts.map

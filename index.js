@@ -11,11 +11,11 @@ function validateFn(fn, operation) {
   }
 }
 /**
- *  Retrieve the last time a function was run.
+ * Retrieve the last time a function was run.
  *
  * @param {Function} fn The user-provided function.
- * @param {string | number} [timeResolution] resolution of returned timestamp.
- * @returns {number | undefined} timestamp of the last time the function was captured.
+ * @param {string | number} [timeResolution] Resolution of returned timestamp.
+ * @returns {number | undefined} Timestamp of the last time the function was captured.
  */
 export default function lastRun(fn, timeResolution) {
   validateFn(fn, "lastRun");
@@ -25,17 +25,16 @@ export default function lastRun(fn, timeResolution) {
   if (time == null) {
     return;
   }
-  // @ts-expect-error - parseInt coerces its argument to a string
+  // @ts-expect-error - parseInt coerces its argument to a string and jsdoc state undefined is allowed for parent function. 
   const resolution = parseInt(timeResolution, 10) || 1;
 
   return time - (time % resolution);
 }
 /**
- * Capture timestamp of a function.
+ * Stores a timestamp for the given function.
  *
  * @param {Function} fn The user-provided function.
- * @param {number} [timestamp] optional override of current time.
- * @returns {void}
+ * @param {number} [timestamp] Override of current time.
  */
 export function capture(fn, timestamp) {
   validateFn(fn, "capture");
@@ -45,10 +44,9 @@ export function capture(fn, timestamp) {
   runtimes.set(fn, timestamp);
 }
 /**
- * Remove a given function last run timestamp.
+ * Drops a timestamp for the given function.
  *
- * @param {Function} fn The user-provided function.
- * @returns {void}
+ * @param {Function} fn The function to untrack.
  */
 export function release(fn) {
   validateFn(fn, "release");
